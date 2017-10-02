@@ -38,7 +38,7 @@ final class PublicSuffixList
         $publicSuffix = empty($matchingLabels) ? $this->handleNoMatches($domain) : $this->processMatches($matchingLabels);
 
         if ($this->isPunycoded($input) === false) {
-            $publicSuffix = idn_to_utf8($publicSuffix);
+            $publicSuffix = idn_to_utf8($publicSuffix, 0, INTL_IDNA_VARIANT_UTS46);
         }
 
         return new Domain($input, $publicSuffix, count($matchingLabels) > 0);
