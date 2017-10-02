@@ -1,0 +1,44 @@
+{
+    "name": "jeremykendall/publicsuffixlist-php",
+    "description": "Public Suffix List based URL parsing implemented in PHP.",
+    "homepage": "https://github.com/jeremykendall/publicsuffixlist-php",
+    "support": {
+        "issues": "https://github.com/jeremykendall/publicsuffixlist-php/issues",
+        "source": "https://github.com/jeremykendall/publicsuffixlist-php"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeremy Kendall",
+            "homepage": "http://about.me/jeremykendall",
+            "role": "Developer"
+        },
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/jeremykendall/publicsuffixlist-php/graphs/contributors"
+        }
+    ],
+    "keywords": [
+        "Public Suffix List",
+        "domain parsing",
+        "public suffix",
+        "registrable domain"
+    ],
+    "require": {
+        "php": ">=7.0",
+        "ext-intl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Psl\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Psl\\Tests\\": "tests/"
+        }
+    }
+}
