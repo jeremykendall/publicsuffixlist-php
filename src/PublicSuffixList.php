@@ -17,11 +17,6 @@ final class PublicSuffixList
     use LabelsTrait;
 
     /**
-     * @var string IP address regex pattern
-     */
-    const IP_ADDRESS_PATTERN = '/^(?:(?:25[0-5]|2[0-4][\d]|[01]?[\d]{1,2}?)\.){3}(?:25[0-5]|2[0-4][\d]|[01]?[\d]{1,2}?)$/';
-
-    /**
      * @var array
      */
     private $rules;
@@ -124,7 +119,7 @@ final class PublicSuffixList
 
     private function isIpAddress(string $domain): bool
     {
-        return preg_match(self::IP_ADDRESS_PATTERN, $domain) === 1;
+        return filter_var($domain, FILTER_VALIDATE_IP) !== false;
     }
 
     private function isExceptionRule(string $label, array $rules): bool
