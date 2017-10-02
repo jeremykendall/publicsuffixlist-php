@@ -78,7 +78,7 @@ final class PublicSuffixList
      */
     private function normalize(string $domain): string
     {
-        return strtolower(idn_to_ascii($domain));
+        return strtolower(idn_to_ascii($domain, 0, INTL_IDNA_VARIANT_UTS46));
     }
 
     private function findMatchingLabels(array $labels, array $rules): array
