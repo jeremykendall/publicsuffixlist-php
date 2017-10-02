@@ -1,5 +1,7 @@
 # Public Suffix List: PHP
 
+## EXPERIMENTAL - DO NOT USE - NOT INTENDED FOR RELEASE
+
 **Public Suffix List: PHP** is a [Public Suffix List](http://publicsuffix.org/) based
 domain parser implemented in PHP.
 
