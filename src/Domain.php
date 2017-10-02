@@ -38,12 +38,18 @@ final class Domain
         $this->isValid = $isValid;
     }
 
-    public function getDomain(): ?string
+    /**
+     * @return string|null
+     */
+    public function getDomain()
     {
         return $this->domain;
     }
 
-    public function getPublicSuffix(): ?string
+    /**
+     * @return string|null
+     */
+    public function getPublicSuffix()
     {
         return $this->publicSuffix;
     }
@@ -82,7 +88,7 @@ final class Domain
      *
      * @return string|null registrable domain
      */
-    public function getRegistrableDomain(): ?string
+    public function getRegistrableDomain()
     {
         if ($this->hasRegistrableDomain($this->publicSuffix) === false) {
             return null;
