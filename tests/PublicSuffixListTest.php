@@ -13,7 +13,10 @@ declare(strict_types=1);
 namespace Psl\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Psl\MatchedDomain;
+use Psl\NullDomain;
 use Psl\PublicSuffixList;
+use Psl\UnmatchedDomain;
 
 class PublicSuffixListTest extends TestCase
 {
@@ -28,14 +31,25 @@ class PublicSuffixListTest extends TestCase
         $this->list = new PublicSuffixList();
     }
 
+    public function testNullWillReturnNullDomain()
+    {
+        $domain = $this->list->query('COM');
+        $this->assertFalse($domain->isValid());
+        $this->assertInstanceOf(NullDomain::class, $domain);
+    }
+
     public function testIsSuffixValidFalse()
     {
-        $this->assertFalse($this->list->query('www.example.faketld')->isValid());
+        $domain = $this->list->query('www.example.faketld');
+        $this->assertFalse($domain->isValid());
+        $this->assertInstanceOf(UnmatchedDomain::class, $domain);
     }
 
     public function testIsSuffixValidTrue()
     {
-        $this->assertTrue($this->list->query('www.example.com')->isValid());
+        $domain = $this->list->query('www.example.com');
+        $this->assertTrue($domain->isValid());
+        $this->assertInstanceOf(MatchedDomain::class, $domain);
     }
 
     /**

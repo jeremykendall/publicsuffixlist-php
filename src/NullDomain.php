@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -10,19 +11,27 @@ declare(strict_types=1);
  * @license   http://github.com/jeremykendall/publicsuffixlist-php/blob/master/LICENSE MIT License
  */
 
+
 namespace Psl;
 
-interface Domain
+
+class NullDomain implements Domain
 {
     /**
      * @return string|null
      */
-    public function getDomain();
+    public function getDomain()
+    {
+        return null;
+    }
 
     /**
      * @return string|null
      */
-    public function getPublicSuffix();
+    public function getPublicSuffix()
+    {
+        return null;
+    }
 
     /**
      * Get registrable domain.
@@ -38,7 +47,10 @@ interface Domain
      *
      * @return string|null registrable domain
      */
-    public function getRegistrableDomain();
+    public function getRegistrableDomain()
+    {
+        return null;
+    }
 
     /**
      * Does the domain have a matching rule in the Public Suffix List?
@@ -55,5 +67,8 @@ interface Domain
      *
      * @return bool
      */
-    public function isValid(): bool;
+    public function isValid(): bool
+    {
+        return false;
+    }
 }

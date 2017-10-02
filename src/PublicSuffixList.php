@@ -29,7 +29,7 @@ final class PublicSuffixList
     public function query(string $domain = null): Domain
     {
         if (!$this->isMatchable($domain)) {
-            return new Domain();
+            return new NullDomain();
         }
 
         $input = $domain;
@@ -41,7 +41,11 @@ final class PublicSuffixList
             $publicSuffix = idn_to_utf8($publicSuffix, 0, INTL_IDNA_VARIANT_UTS46);
         }
 
-        return new Domain($input, $publicSuffix, count($matchingLabels) > 0);
+        if (count($matchingLabels) > 0) {
+            return new MatchedDomain($input, $publicSuffix, true);
+        }
+
+        return new UnmatchedDomain($input, $publicSuffix, false);
     }
 
     private function isMatchable($domain): bool
