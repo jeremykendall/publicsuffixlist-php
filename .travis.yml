@@ -11,4 +11,3 @@ script: phpunit
 
 before_script:
   - composer install
-  - ./bin/update-psl
