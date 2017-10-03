@@ -40,5 +40,8 @@
         "psr-4": {
             "Psl\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "phpunit": "phpunit --coverage-text"
     }
 }

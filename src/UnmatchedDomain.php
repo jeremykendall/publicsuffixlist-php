@@ -10,10 +10,7 @@ declare(strict_types=1);
  * @copyright Copyright (c) 2017 Jeremy Kendall (http://jeremykendall.net)
  * @license   http://github.com/jeremykendall/publicsuffixlist-php/blob/master/LICENSE MIT License
  */
-
-
 namespace Psl;
-
 
 class UnmatchedDomain implements Domain
 {
@@ -34,6 +31,13 @@ class UnmatchedDomain implements Domain
      */
     private $isValid;
 
+    /**
+     * New instance
+     *
+     * @param string|null $domain
+     * @param string|null $publicSuffix
+     * @param bool        $isValid
+     */
     public function __construct(string $domain = null, string $publicSuffix = null, bool $isValid = false)
     {
         $this->domain = $domain;
@@ -41,24 +45,36 @@ class UnmatchedDomain implements Domain
         $this->isValid = $isValid;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getDomain()
     {
         return $this->domain;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getPublicSuffix()
     {
         return $this->publicSuffix;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function isValid(): bool
     {
         return $this->isValid;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getRegistrableDomain()
     {
-        if ($this->hasRegistrableDomain($this->publicSuffix) === false) {
+        if (!$this->hasRegistrableDomain()) {
             return null;
         }
 
@@ -69,19 +85,26 @@ class UnmatchedDomain implements Domain
         return implode('.', array_merge($additionalLabel, $publicSuffixLabels));
     }
 
-    private function hasRegistrableDomain($publicSuffix): bool
+    /**
+     * Tell whether the object contain a registrable domain
+     *
+     * @return bool
+     */
+    private function hasRegistrableDomain(): bool
     {
-        return !($publicSuffix === null || $this->domain === $publicSuffix || !$this->hasLabels($this->domain));
+        return !in_array($this->publicSuffix, [null, $this->domain], true) && $this->hasLabels($this->domain);
     }
 
+    /**
+     * Returns the additional label to generate the registrable domain
+     *
+     * @param string[] $domainLabels
+     * @param string[] $publicSuffixLabels
+     *
+     * @return string[]
+     */
     private function getAdditionalLabel($domainLabels, $publicSuffixLabels): array
     {
-        $additionalLabel = array_slice(
-            $domainLabels,
-            count($domainLabels) - count($publicSuffixLabels) - 1,
-            1
-        );
-
-        return $additionalLabel;
+        return array_slice($domainLabels, count($domainLabels) - count($publicSuffixLabels) - 1, 1);
     }
 }
